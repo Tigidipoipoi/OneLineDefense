@@ -42,4 +42,11 @@ public class ResourcesManager : MonoBehaviour {
         mCurrentMana -= cost.mMana;
         Debug.Log (string.Format ("{0} & {1}", mCurrentGold, mCurrentMana));
     }
+
+    void Update () {
+        if (Input.GetKeyDown (KeyCode.Space)) {
+            mCurrentGold += 100;
+            Debug.Log ("Katching!");
+        }
+    }
 }
