@@ -3,5 +3,7 @@ using System.Collections;
 
 [System.Serializable]
 public class Hero {
-    protected Stats mAttribute;
+    #region Members
+    protected Stats m_Attribute;
+    #endregion
 }

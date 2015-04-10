@@ -11,30 +11,33 @@ public class Attack {
         COUNT
     }
 
-    public ATTACK_TYPES mAtkType;
-    public float        mSpeed;
-    public float        mReloadTime;
-    public int          mPower;
+    #region Members
+    public ATTACK_TYPES m_AtkType;
+    public float m_Speed;
+    public float m_ReloadTime;
+    public int m_Power;
 
     #region Slow
-    public float mSlowDuration;
-    public float mSlowIntensity;
+    public float m_SlowDuration;
+    public float m_SlowIntensity;
     #endregion
 
     #region AoE
-    public int   mSplashReduction;
-    public int  mAreaOfEffect;
+    public int m_SplashReduction;
+    public int m_AreaOfEffect;
+    #endregion
     #endregion
 
-    public Attack (ATTACK_TYPES atkType, float speed, float reloadTime, int power,
-        float slowDuration = 0, float slowIntesity = 0, int splashReduction = 0, int aoe = 0) {
-        mAtkType = atkType;
-        mSpeed = speed;
-        mReloadTime = reloadTime;
-        mPower = power;
-        mSlowDuration = slowDuration;
-        mSlowIntensity = slowIntesity;
-        mSplashReduction = splashReduction;
-        mAreaOfEffect = aoe;
+    public Attack(ATTACK_TYPES atkType, float speed, float reloadTime,
+        int power, float slowDuration = 0, float slowIntesity = 0,
+        int splashReduction = 0, int aoe = 0) {
+        m_AtkType = atkType;
+        m_Speed = speed;
+        m_ReloadTime = reloadTime;
+        m_Power = power;
+        m_SlowDuration = slowDuration;
+        m_SlowIntensity = slowIntesity;
+        m_SplashReduction = splashReduction;
+        m_AreaOfEffect = aoe;
     }
 }

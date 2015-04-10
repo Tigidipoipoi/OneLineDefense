@@ -12,8 +12,9 @@ public class MultiplayerManager : MonoBehaviour {
         }
     }
     void Awake() {
-        if (s_Instance == null)
+        if (s_Instance == null) {
             s_Instance = this;
+        }
         DontDestroyOnLoad(this);
     }
     #endregion

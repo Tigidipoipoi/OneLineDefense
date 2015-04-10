@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class SplashScreen : MonoBehaviour {
-    void Start () {
-        Application.LoadLevel (1);
+    void Start() {
+        Application.LoadLevel(1);
     }
 }

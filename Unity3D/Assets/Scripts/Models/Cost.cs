@@ -3,11 +3,13 @@ using System.Collections;
 
 [System.Serializable]
 public class Cost {
-    public int mGold;
-    public int mMana;
+    #region Members
+    public int m_Gold;
+    public int m_Mana;
+    #endregion
 
-    public Cost (int gold, int mana) {
-        mGold = gold;
-        mMana = mana;
+    public Cost(int gold, int mana) {
+        m_Gold = gold;
+        m_Mana = mana;
     }
 }

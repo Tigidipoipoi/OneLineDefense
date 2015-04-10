@@ -3,52 +3,55 @@ using System.Collections;
 
 public class ResourcesManager : MonoBehaviour {
     #region Singleton
-    static private ResourcesManager sInstance;
-    static public ResourcesManager instance {
+    static private ResourcesManager s_Instance;
+    static public ResourcesManager GetInstance {
         get {
-            return sInstance;
+            return s_Instance;
         }
     }
 
     void Awake() {
-        if (sInstance == null)
-            sInstance = this;
-        GameObject.DontDestroyOnLoad(this);
+        if (s_Instance == null) {
+            s_Instance = this;
+        }
+        DontDestroyOnLoad(this);
     }
     #endregion
 
-    public int mCurrentGold = 100;
-    public int mCurrentMana = 100;
-    public const int cStartGold = 100;
-    public const int cStartMana = 100;
+    #region Members
+    public int m_CurrentGold = 100;
+    public int m_CurrentMana = 100;
+    public const int c_StartGold = 100;
+    public const int c_StartMana = 100;
+    #endregion
 
     public void Init() {
-        mCurrentGold = cStartGold;
-        mCurrentMana = cStartMana;
+        m_CurrentGold = c_StartGold;
+        m_CurrentMana = c_StartMana;
     }
 
     public bool HasEnoughResources(Cost cost) {
-        bool enoughResources = mCurrentGold >= cost.mGold
-                            && mCurrentMana >= cost.mMana;
+        bool enoughResources = m_CurrentGold >= cost.m_Gold
+            && m_CurrentMana >= cost.m_Mana;
         Debug.Log(enoughResources
-            ? "Spawning Creep"
-            : "Not enough resources");
+            ? "Spawning Creep."
+            : "Not enough resources.");
 
         return enoughResources;
     }
 
     public void PayCost(Cost cost) {
-        mCurrentGold -= cost.mGold;
-        mCurrentMana -= cost.mMana;
+        m_CurrentGold -= cost.m_Gold;
+        m_CurrentMana -= cost.m_Mana;
         Debug.Log(string.Format(
-            "ResourcesManager::PayCost => {0} & {1}",
-            mCurrentGold, mCurrentMana));
+            "ResourcesManager::PayCost => {0} & {1}.",
+            m_CurrentGold, m_CurrentMana));
     }
 
     void Update() {
         if (Input.GetKeyDown(KeyCode.Space)) {
-            mCurrentGold += 100;
-            Debug.Log("Katching!");
+            m_CurrentGold += 100;
+            Debug.Log("ResourcesManager::PayCost => 100 gold has been added.");
         }
     }
 }

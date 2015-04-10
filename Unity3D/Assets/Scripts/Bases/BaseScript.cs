@@ -2,5 +2,5 @@
 using System.Collections;
 
 public class BaseScript : MonoBehaviour {
-    public Base mBaseStats;
+    public Base m_BaseStats;
 }

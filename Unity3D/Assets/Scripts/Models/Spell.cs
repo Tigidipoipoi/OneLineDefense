@@ -10,13 +10,9 @@ public class Spell {
         COUNT
     }
 
-    protected SPELL_TYPES   mSpellType;
-    protected Attack        mAttackData;
-    protected Cost          mCost;
-
-    /*
-     *  protected Cost mCost;
-     *  protected int mPower;
-     *  protected float mReloadSpeed;
-     * */
+    #region Members
+    public SPELL_TYPES m_SpellType;
+    public Attack m_AttackData;
+    public Cost m_Cost;
+    #endregion
 }

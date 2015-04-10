@@ -3,28 +3,29 @@ using System.Collections;
 
 public class CreepMovement : MonoBehaviour {
     #region Members
-    GameObject mEnemyBasePos;
-    NavMeshAgent mNav;
+    GameObject m_EnemyBasePos;
+    NavMeshAgent m_NavMeshAgent;
     float m_OwnColliderEnd;
     #endregion
 
     void Awake() {
-        mNav = this.GetComponent<NavMeshAgent>();
+        m_NavMeshAgent = this.GetComponent<NavMeshAgent>();
     }
 
     void Start() {
-        mEnemyBasePos = GameObject.Find("EnemyBase");
-        mNav.SetDestination(mEnemyBasePos.transform.position);
+        m_EnemyBasePos = GameObject.Find("EnemyBase");
+        m_NavMeshAgent.SetDestination(m_EnemyBasePos.transform.position);
         m_OwnColliderEnd = Utils.GetSphereColliderEnd(gameObject);
 
         ComputeStoppingDistance();
     }
 
     void ComputeStoppingDistance() {
-        float targetColliderEnd = Utils.GetBoxColliderEnd(mEnemyBasePos);
+        float targetColliderEnd = Utils.GetBoxColliderEnd(m_EnemyBasePos);
         float attackRange = GetComponent<CreepScript>()
-            .mCreepStats.mAttribute.mRange;
+            .m_CreepStats.m_Attribute.m_Range;
 
-        mNav.stoppingDistance = m_OwnColliderEnd + attackRange + targetColliderEnd;
+        m_NavMeshAgent.stoppingDistance = m_OwnColliderEnd
+            + attackRange + targetColliderEnd;
     }
 }

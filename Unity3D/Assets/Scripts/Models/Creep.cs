@@ -11,25 +11,27 @@ public class Creep {
         COUNT
     }
 
-    public Stats      mAttribute;
-    public CREEP_LIST mType;
-    public string     mName;
+    #region Members
+    public Stats m_Attribute;
+    public CREEP_LIST m_Type;
+    public string m_Name;
+    #endregion
 
-    public Creep (CREEP_LIST type) {
+    public Creep(CREEP_LIST type) {
         if (type != CREEP_LIST.COUNT)
-            mType = type;
+            m_Type = type;
         else
-            mType = CREEP_LIST.BASE_MELEE;
-        this.InitCreep ();
+            m_Type = CREEP_LIST.BASE_MELEE;
+        this.InitCreep();
     }
 
-    public Creep ()
-        : this (CREEP_LIST.BASE_MELEE) { }
+    public Creep()
+        : this(CREEP_LIST.BASE_MELEE) { }
 
-    public void InitCreep () {
-        switch (mType) {
+    public void InitCreep() {
+        switch (m_Type) {
             case CREEP_LIST.BASE_RANGE:
-                mAttribute = new Stats (
+                m_Attribute = new Stats(
                     hp: 10, spawnTime: 3.0f, range: 3.5f, defense: 1,
                     gold: 15, mana: 0,
                     atkType: Attack.ATTACK_TYPES.RANGE, speed: 1.5f,
@@ -38,7 +40,7 @@ public class Creep {
 
             case CREEP_LIST.BASE_MELEE:
             default:
-                mAttribute = new Stats (
+                m_Attribute = new Stats(
                     hp: 15, spawnTime: 2.5f, range: 1.5f, defense: 2,
                     gold: 10, mana: 0,
                     atkType: Attack.ATTACK_TYPES.MELEE, speed: 1.0f,
