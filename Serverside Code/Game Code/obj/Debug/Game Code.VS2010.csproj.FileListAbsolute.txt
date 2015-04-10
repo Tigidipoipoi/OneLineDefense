@@ -5,3 +5,10 @@ C:\Users\sig4gp\Downloads\Yahoo Games Network SDK.cGtXZki91UiXY1kobnvBkQ\Unity3D
 C:\Users\sig4gp\Downloads\Yahoo Games Network SDK.cGtXZki91UiXY1kobnvBkQ\Unity3D\Example - Multiplayer - Mushrooms\Serverside Code\Game Code\bin\Debug\OneLineDefense.pdb
 C:\Users\sig4gp\Downloads\Yahoo Games Network SDK.cGtXZki91UiXY1kobnvBkQ\Unity3D\Example - Multiplayer - Mushrooms\Serverside Code\Game Code\obj\Debug\OneLineDefense.dll
 C:\Users\sig4gp\Downloads\Yahoo Games Network SDK.cGtXZki91UiXY1kobnvBkQ\Unity3D\Example - Multiplayer - Mushrooms\Serverside Code\Game Code\obj\Debug\OneLineDefense.pdb
+C:\Users\sig4gp\Documents\Workspace\OneLineDefense\Serverside Code\Game Code\bin\Debug\OneLineDefense.dll
+C:\Users\sig4gp\Documents\Workspace\OneLineDefense\Serverside Code\Game Code\bin\Debug\OneLineDefense.pdb
+C:\Users\sig4gp\Documents\Workspace\OneLineDefense\Serverside Code\Game Code\bin\Debug\Player.IO GameLibrary.dll
+C:\Users\sig4gp\Documents\Workspace\OneLineDefense\Serverside Code\Game Code\bin\Debug\Player.IO GameLibrary.xml
+C:\Users\sig4gp\Documents\Workspace\OneLineDefense\Serverside Code\Game Code\obj\Debug\Game Code.VS2010.csprojResolveAssemblyReference.cache
+C:\Users\sig4gp\Documents\Workspace\OneLineDefense\Serverside Code\Game Code\obj\Debug\OneLineDefense.dll
+C:\Users\sig4gp\Documents\Workspace\OneLineDefense\Serverside Code\Game Code\obj\Debug\OneLineDefense.pdb

@@ -10,10 +10,10 @@ public class ResourcesManager : MonoBehaviour {
         }
     }
 
-    void Awake () {
+    void Awake() {
         if (sInstance == null)
             sInstance = this;
-        GameObject.DontDestroyOnLoad (this);
+        GameObject.DontDestroyOnLoad(this);
     }
     #endregion
 
@@ -22,31 +22,33 @@ public class ResourcesManager : MonoBehaviour {
     public const int cStartGold = 100;
     public const int cStartMana = 100;
 
-    public void Init () {
+    public void Init() {
         mCurrentGold = cStartGold;
         mCurrentMana = cStartMana;
     }
 
-    public bool HasEnoughResources (Cost cost) {
+    public bool HasEnoughResources(Cost cost) {
         bool enoughResources = mCurrentGold >= cost.mGold
                             && mCurrentMana >= cost.mMana;
-        Debug.Log (enoughResources
+        Debug.Log(enoughResources
             ? "Spawning Creep"
             : "Not enough resources");
 
         return enoughResources;
     }
 
-    public void PayCost (Cost cost) {
+    public void PayCost(Cost cost) {
         mCurrentGold -= cost.mGold;
         mCurrentMana -= cost.mMana;
-        Debug.Log (string.Format ("{0} & {1}", mCurrentGold, mCurrentMana));
+        Debug.Log(string.Format(
+            "ResourcesManager::PayCost => {0} & {1}",
+            mCurrentGold, mCurrentMana));
     }
 
-    void Update () {
-        if (Input.GetKeyDown (KeyCode.Space)) {
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.Space)) {
             mCurrentGold += 100;
-            Debug.Log ("Katching!");
+            Debug.Log("Katching!");
         }
     }
 }

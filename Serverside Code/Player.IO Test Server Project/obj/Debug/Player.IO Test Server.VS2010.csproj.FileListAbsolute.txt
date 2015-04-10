@@ -10,3 +10,11 @@ C:\Users\sig4gp\Documents\Workspace\OneLineDefense\Serverside Code\Player.IO Tes
 C:\Users\sig4gp\Documents\Workspace\OneLineDefense\Serverside Code\Player.IO Test Server Project\obj\Debug\Test Server.pdb
 C:\Users\sig4gp\Downloads\Yahoo Games Network SDK.cGtXZki91UiXY1kobnvBkQ\Unity3D\Example - Multiplayer - Mushrooms\Serverside Code\Player.IO Test Server Project\bin\Debug\OneLineDefense.dll
 C:\Users\sig4gp\Downloads\Yahoo Games Network SDK.cGtXZki91UiXY1kobnvBkQ\Unity3D\Example - Multiplayer - Mushrooms\Serverside Code\Player.IO Test Server Project\bin\Debug\OneLineDefense.pdb
+C:\Users\sig4gp\Documents\Workspace\OneLineDefense\Serverside Code\Player.IO Test Server Project\bin\Debug\Test Server.exe
+C:\Users\sig4gp\Documents\Workspace\OneLineDefense\Serverside Code\Player.IO Test Server Project\bin\Debug\Test Server.pdb
+C:\Users\sig4gp\Documents\Workspace\OneLineDefense\Serverside Code\Player.IO Test Server Project\bin\Debug\OneLineDefense.dll
+C:\Users\sig4gp\Documents\Workspace\OneLineDefense\Serverside Code\Player.IO Test Server Project\bin\Debug\Player.IO Development Server.exe
+C:\Users\sig4gp\Documents\Workspace\OneLineDefense\Serverside Code\Player.IO Test Server Project\bin\Debug\Player.IO GameLibrary.dll
+C:\Users\sig4gp\Documents\Workspace\OneLineDefense\Serverside Code\Player.IO Test Server Project\bin\Debug\OneLineDefense.pdb
+C:\Users\sig4gp\Documents\Workspace\OneLineDefense\Serverside Code\Player.IO Test Server Project\bin\Debug\Player.IO GameLibrary.xml
+C:\Users\sig4gp\Documents\Workspace\OneLineDefense\Serverside Code\Player.IO Test Server Project\obj\Debug\Player.IO Test Server.VS2010.csprojResolveAssemblyReference.cache
