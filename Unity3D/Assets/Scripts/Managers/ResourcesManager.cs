@@ -43,15 +43,11 @@ public class ResourcesManager : MonoBehaviour {
     public void PayCost(Cost cost) {
         m_CurrentGold -= cost.m_Gold;
         m_CurrentMana -= cost.m_Mana;
-        Debug.Log(string.Format(
-            "ResourcesManager::PayCost => {0} & {1}.",
-            m_CurrentGold, m_CurrentMana));
     }
 
     void Update() {
         if (Input.GetKeyDown(KeyCode.Space)) {
             m_CurrentGold += 100;
-            Debug.Log("ResourcesManager::PayCost => 100 gold has been added.");
         }
     }
 }

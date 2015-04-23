@@ -32,7 +32,7 @@ public class Creep {
         switch (m_Type) {
             case CREEP_LIST.BASE_RANGE:
                 m_Attribute = new Stats(
-                    hp: 10, spawnTime: 3.0f, range: 3.5f, defense: 1,
+                    hp: 10, spawnTime: 2.5f, range: 3.5f, defense: 1,
                     gold: 15, mana: 0,
                     atkType: Attack.ATTACK_TYPES.RANGE, speed: 1.5f,
                     reloadTime: 1.0f, power: 2);
@@ -41,7 +41,7 @@ public class Creep {
             case CREEP_LIST.BASE_MELEE:
             default:
                 m_Attribute = new Stats(
-                    hp: 15, spawnTime: 2.5f, range: 1.5f, defense: 2,
+                    hp: 15, spawnTime: 2.0f, range: 1.0f, defense: 2,
                     gold: 10, mana: 0,
                     atkType: Attack.ATTACK_TYPES.MELEE, speed: 1.0f,
                     reloadTime: 1.0f, power: 1);

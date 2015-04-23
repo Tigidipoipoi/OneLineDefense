@@ -3,29 +3,39 @@ using System.Collections;
 
 public class CreepMovement : MonoBehaviour {
     #region Members
-    GameObject m_EnemyBasePos;
-    NavMeshAgent m_NavMeshAgent;
-    float m_OwnColliderEnd;
+    [HideInInspector]
+    public GameObject m_EnemyBasePos;
+    public NavMeshAgent m_NavMeshAgent;
+    public CreepScript m_CreepScript;
     #endregion
 
-    void Awake() {
-        m_NavMeshAgent = this.GetComponent<NavMeshAgent>();
-    }
-
     void Start() {
-        m_EnemyBasePos = GameObject.Find("EnemyBase");
-        m_NavMeshAgent.SetDestination(m_EnemyBasePos.transform.position);
-        m_OwnColliderEnd = Utils.GetSphereColliderEnd(gameObject);
+        m_EnemyBasePos = GameObject.Find(
+            gameObject.layer == CreepManager.GetInstance.m_AllyCreepLayer
+            ? "EnemyBase" : "AllyBase");
 
-        ComputeStoppingDistance();
+        ChangeTarget(m_EnemyBasePos);
     }
 
-    void ComputeStoppingDistance() {
-        float targetColliderEnd = Utils.GetBoxColliderEnd(m_EnemyBasePos);
-        float attackRange = GetComponent<CreepScript>()
-            .m_CreepStats.m_Attribute.m_Range;
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.W)) {
+            Debug.Log(string.Format("{0}: {1} remaining.",
+                name, m_NavMeshAgent.remainingDistance.ToString()));
+        }
+    }
 
-        m_NavMeshAgent.stoppingDistance = m_OwnColliderEnd
-            + attackRange + targetColliderEnd;
+    public void ChangeTarget(GameObject target,
+        bool targetHasSphereCollider = false) {
+
+        m_NavMeshAgent.stoppingDistance =
+            m_CreepScript.ComputeStoppingDistance(targetHasSphereCollider
+                ? Utils.GetSphereColliderEnd(target)
+                : Utils.GetBoxColliderEnd(target));
+        m_NavMeshAgent.SetDestination(target.transform.position);
+    }
+
+    public bool TargetIsAtAttackRange() {
+        return m_NavMeshAgent.remainingDistance
+            <= m_NavMeshAgent.stoppingDistance;
     }
 }

@@ -6,5 +6,5 @@ using System.Collections;
 /// Please remember to remove it from the scene when your tests are over.
 /// </summary>
 public class TestScript : MonoBehaviour {
-    // Waiting for code to test
+    
 }
