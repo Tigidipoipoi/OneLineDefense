@@ -26,7 +26,6 @@ public class CreepMovement : MonoBehaviour {
 
     public void ChangeTarget(GameObject target,
         bool targetHasSphereCollider = false) {
-
         m_NavMeshAgent.stoppingDistance =
             m_CreepScript.ComputeStoppingDistance(targetHasSphereCollider
                 ? Utils.GetSphereColliderEnd(target)

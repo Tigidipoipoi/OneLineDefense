@@ -14,21 +14,24 @@ public class CreepAttack : MonoBehaviour {
     }
 
     public void OnTriggerEnter(Collider other) {
+        // Meet enemy's creep
         if (m_CreepScript.GetCurrentState() ==
                 CreepScript.CREEP_STATE.AIMING_FOR_ENEMY_BASE
             && other.gameObject.layer == m_CreepScript.m_EnemyCreepLayer) {
             Debug.Log("Target spoted!");
             StartSeekAndDestroy(other.gameObject);
         }
+        // Meet enemy's base
+        if (other.gameObject == m_CreepMovement.m_EnemyBasePos) {
+            StartCoroutine("Destroy", m_CreepMovement.m_EnemyBasePos
+                .GetComponent<BaseScript>());
+        }
     }
 
     private IEnumerator Seek(GameObject target) {
-        while (true) {
-            if (target == null) {
-                StopSeekAndDestroy();
-                break;
-            }
+        CreepScript targetScript = target.GetComponent<CreepScript>();
 
+        while (targetScript != null) {
             m_CreepMovement.ChangeTarget(target, true);
             bool targetIsAtAttackRange =
                 m_CreepMovement.TargetIsAtAttackRange();
@@ -39,7 +42,7 @@ public class CreepAttack : MonoBehaviour {
                     && targetIsAtAttackRange) {
                 m_CreepScript.SwitchToDestroyState();
 
-                StartCoroutine("Destroy", target.GetComponent<CreepScript>());
+                StartCoroutine("Destroy", targetScript);
             }
             else if (m_CreepScript.GetCurrentState() !=
                     CreepScript.CREEP_STATE.SEEKING
@@ -51,14 +54,29 @@ public class CreepAttack : MonoBehaviour {
 
             yield return null;
         }
+
+        StopSeekAndDestroy();
     }
 
     private IEnumerator Destroy(CreepScript targetScript) {
-        while (true) {
+        while (targetScript != null) {
             // Attacking ennemy
             m_CreepScript.Attack(targetScript);
             if (m_CreepScript.m_CreepStats.m_Attribute.m_HP < 0) {
                 StopSeekAndDestroy();
+            }
+
+            yield return new WaitForSeconds(m_CreepScript.m_CreepStats
+                .m_Attribute.m_Attack.m_ReloadTime);
+        }
+    }
+
+    private IEnumerator Destroy(BaseScript targetScript) {
+        while (targetScript != null) {
+            // Attacking ennemy
+            m_CreepScript.Attack(targetScript);
+            if (m_CreepScript.m_CreepStats.m_Attribute.m_HP < 0) {
+                break;
             }
 
             yield return new WaitForSeconds(m_CreepScript.m_CreepStats
@@ -76,10 +94,6 @@ public class CreepAttack : MonoBehaviour {
     }
 
     public void StopSeekAndDestroy() {
-        if (m_CreepScript.GetCurrentState() ==
-                CreepScript.CREEP_STATE.AIMING_FOR_ENEMY_BASE)
-            return;
-
         m_CreepScript.SwitchToDefaultState();
         m_CreepMovement.ChangeTarget(m_CreepMovement.m_EnemyBasePos);
         StopCoroutine("Seek");

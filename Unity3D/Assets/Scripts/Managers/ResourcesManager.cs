@@ -28,6 +28,8 @@ public class ResourcesManager : MonoBehaviour {
     public void Init() {
         m_CurrentGold = c_StartGold;
         m_CurrentMana = c_StartMana;
+        UIManager.GetInstance.UpdateCurrentGold(m_CurrentGold);
+        UIManager.GetInstance.UpdateCurrentMana(m_CurrentMana);
     }
 
     public bool HasEnoughResources(Cost cost) {
@@ -43,11 +45,16 @@ public class ResourcesManager : MonoBehaviour {
     public void PayCost(Cost cost) {
         m_CurrentGold -= cost.m_Gold;
         m_CurrentMana -= cost.m_Mana;
+        UIManager.GetInstance.UpdateCurrentGold(m_CurrentGold);
+        UIManager.GetInstance.UpdateCurrentMana(m_CurrentMana);
     }
 
     void Update() {
         if (Input.GetKeyDown(KeyCode.Space)) {
             m_CurrentGold += 100;
+            UIManager.GetInstance.UpdateCurrentGold(m_CurrentGold);
         }
     }
+
+
 }
