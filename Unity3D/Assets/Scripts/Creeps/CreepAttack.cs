@@ -36,16 +36,15 @@ public class CreepAttack : MonoBehaviour {
             bool targetIsAtAttackRange =
                 m_CreepMovement.TargetIsAtAttackRange();
 
+            CreepScript.CREEP_STATE currentState = m_CreepScript.GetCurrentState();
             #region Can Destroy ?
-            if (m_CreepScript.GetCurrentState() !=
-                        CreepScript.CREEP_STATE.DESTROYING
+            if (currentState != CreepScript.CREEP_STATE.DESTROYING
                     && targetIsAtAttackRange) {
                 m_CreepScript.SwitchToDestroyState();
 
                 StartCoroutine("Destroy", targetScript);
             }
-            else if (m_CreepScript.GetCurrentState() !=
-                    CreepScript.CREEP_STATE.SEEKING
+            else if (currentState != CreepScript.CREEP_STATE.SEEKING
                 && !targetIsAtAttackRange) {
                 m_CreepScript.SwitchToSeekState();
                 StopCoroutine("Destroy");

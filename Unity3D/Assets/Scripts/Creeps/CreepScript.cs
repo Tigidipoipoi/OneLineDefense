@@ -97,6 +97,10 @@ public class CreepScript : MonoBehaviour {
 
     private void Die() {
         Debug.Log(name + " has just died.");
-        Destroy(this.gameObject);
+        
+        // Will generate a random error if not previously destroy
+        Destroy(GetComponent<NavMeshAgent>());
+
+        Destroy(gameObject);
     }
 }
