@@ -35,18 +35,6 @@ public class CreepManager : MonoBehaviour {
         m_EnemyCreepLayer = LayerMask.NameToLayer("EnemyCreep");
     }
 
-    void Update() {
-        bool spawn1stCreep = Input.GetKeyDown(KeyCode.Alpha1);
-        bool spawn2ndCreep = Input.GetKeyDown(KeyCode.Alpha2);
-
-        if (spawn1stCreep) {
-            SpawnCreep(Creep.CREEP_LIST.BASE_MELEE);
-        }
-        if (spawn2ndCreep) {
-            SpawnCreep(Creep.CREEP_LIST.BASE_RANGE);
-        }
-    }
-
     public void FindAllySpawn() {
         m_AllySpawn = GameObject.Find("AllySpawn").transform;
     }
@@ -57,6 +45,14 @@ public class CreepManager : MonoBehaviour {
         for (int i = 0; i < childCount; ++i) {
             ChangeLayersRecursively(parent.GetChild(i), layerName);
         }
+    }
+
+    public void SpawnRangeCreep() {
+        SpawnCreep(Creep.CREEP_LIST.BASE_RANGE);
+    }
+
+    public void SpawnMeleeCreep() {
+        SpawnCreep(Creep.CREEP_LIST.BASE_MELEE);
     }
 
     private void SpawnCreep(Creep.CREEP_LIST creepTypeToSummon) {

@@ -23,13 +23,18 @@ public class ResourcesManager : MonoBehaviour {
     public int m_CurrentMana = 100;
     public const int c_StartGold = 100;
     public const int c_StartMana = 100;
+    public float m_Income;
+    public const float c_StartIncome = 1.5f;
+    public const float c_IncomeDelay = 1.0f;
     #endregion
 
     public void Init() {
         m_CurrentGold = c_StartGold;
         m_CurrentMana = c_StartMana;
+        m_Income = c_StartIncome;
         UIManager.GetInstance.UpdateCurrentGold(m_CurrentGold);
         UIManager.GetInstance.UpdateCurrentMana(m_CurrentMana);
+        StartCoroutine("IncomeCoroutine");
     }
 
     public bool HasEnoughResources(Cost cost) {
@@ -49,12 +54,16 @@ public class ResourcesManager : MonoBehaviour {
         UIManager.GetInstance.UpdateCurrentMana(m_CurrentMana);
     }
 
-    void Update() {
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            m_CurrentGold += 100;
+    private IEnumerator IncomeCoroutine() {
+        while (true) {
+            m_CurrentGold += (int)m_Income;
             UIManager.GetInstance.UpdateCurrentGold(m_CurrentGold);
+
+            yield return new WaitForSeconds(c_IncomeDelay);
         }
     }
 
-
+    public void UpdateIncomeFromCreepDeath() {
+        m_Income += 0.1f;
+    }
 }

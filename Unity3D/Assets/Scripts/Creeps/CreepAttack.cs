@@ -31,7 +31,7 @@ public class CreepAttack : MonoBehaviour {
     private IEnumerator Seek(GameObject target) {
         CreepScript targetScript = target.GetComponent<CreepScript>();
 
-        while (targetScript != null) {
+        while (target != null) {
             m_CreepMovement.ChangeTarget(target, true);
             bool targetIsAtAttackRange =
                 m_CreepMovement.TargetIsAtAttackRange();

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class CreepScript : MonoBehaviour {
@@ -97,7 +98,11 @@ public class CreepScript : MonoBehaviour {
 
     private void Die() {
         Debug.Log(name + " has just died.");
-        
+
+        if (gameObject.layer == CreepManager.GetInstance.m_EnemyCreepLayer) {
+            ResourcesManager.GetInstance.UpdateIncomeFromCreepDeath();
+        }
+
         // Will generate a random error if not previously destroy
         Destroy(GetComponent<NavMeshAgent>());
 

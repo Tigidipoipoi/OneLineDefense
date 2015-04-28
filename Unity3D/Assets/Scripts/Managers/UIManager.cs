@@ -22,6 +22,7 @@ public class UIManager : MonoBehaviour {
 
     #region Members
     public GameObject m_PlayerInfosPanel;
+    public GameObject m_CreepsInfosPanel;
     private Text m_BaseHPDisplay;
     private Text m_CurrentGoldDisplay;
     private Text m_CurrentManaDisplay;
@@ -48,4 +49,13 @@ public class UIManager : MonoBehaviour {
     public void UpdateCurrentMana(int mana) {
         m_CurrentManaDisplay.text = string.Format("Mana: {0}", mana.ToString());
     }
+
+    //public RectTransform NewHealthBar(RectTransform healthBar) {
+    //    RectTransform instanciatedHB = Instantiate<RectTransform>(healthBar);
+    //    instanciatedHB.SetParent(m_CreepsInfosPanel.GetComponent<RectTransform>());
+    //    // When instanciated the scale goes mad so we fix it here
+    //    instanciatedHB.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+
+    //    return instanciatedHB;
+    //}
 }
