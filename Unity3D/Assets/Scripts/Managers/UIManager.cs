@@ -22,7 +22,6 @@ public class UIManager : MonoBehaviour {
 
     #region Members
     public GameObject m_PlayerInfosPanel;
-    public GameObject m_CreepsInfosPanel;
     private Text m_BaseHPDisplay;
     private Text m_CurrentGoldDisplay;
     private Text m_CurrentManaDisplay;
@@ -38,16 +37,24 @@ public class UIManager : MonoBehaviour {
     }
 
     public void UpdateBaseHP(int baseHP) {
-        m_BaseHPDisplay.text = string.Format("Base HP: {0}/{1}",
+        m_BaseHPDisplay.text = string.Format("{0}: {1}/{2}",
+            LocalizationManager.GetInstance
+                .GetLocalizedText(Utils.LocalizedTexts.c_BaseHp),
             baseHP.ToString(), Base.c_MaxHP.ToString());
     }
 
     public void UpdateCurrentGold(int gold) {
-        m_CurrentGoldDisplay.text = string.Format("Gold: {0}", gold.ToString());
+        m_CurrentGoldDisplay.text = string.Format("{0}: {1}",
+            LocalizationManager.GetInstance
+                .GetLocalizedText(Utils.LocalizedTexts.c_Gold),
+            gold.ToString());
     }
 
     public void UpdateCurrentMana(int mana) {
-        m_CurrentManaDisplay.text = string.Format("Mana: {0}", mana.ToString());
+        m_CurrentManaDisplay.text = string.Format("{0}: {1}",
+            LocalizationManager.GetInstance
+                .GetLocalizedText(Utils.LocalizedTexts.c_Mana),
+            mana.ToString());
     }
 
     //public RectTransform NewHealthBar(RectTransform healthBar) {
