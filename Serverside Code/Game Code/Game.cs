@@ -9,7 +9,7 @@ namespace OneLineDefense {
     public class Player : BasePlayer {
     }
 
-    [RoomType("TestingRoom")]
+    [RoomType("Lobby")]
     public class GameCode : Game<Player> {
         #region Base methods
         public override void GameStarted() {
@@ -42,33 +42,34 @@ namespace OneLineDefense {
         public override void GotMessage(Player player, Message message) {
             Console.WriteLine("Message from client: " + player.ConnectUserId + ": " + message.Type);
             switch (message.Type) {
-                case "Chat":
-                    this.Chat(player, message);
-                    break;
+                //case "Chat":
+                //    Chat(player, message);
+                //    break;
                 case "CreateUser":
-                    this.CreateUser(player, message);
+                    CreateUser(player, message);
                     break;
                 case "UpdateUser":
-                    this.UpdateUser(player, message);
+                    UpdateUser(player, message);
                     break;
             }
         }
         #endregion
 
         #region "GotMessage" methods
-        private void Chat(Player player, Message message) {
-            foreach (Player pl in Players) {
-                if (pl.ConnectUserId != player.ConnectUserId) {
-                    pl.Send("Chat", player.ConnectUserId, message.GetString(0));
-                }
-            }
-        }
+        //private void Chat(Player player, Message message) {
+        //    foreach (Player pl in Players) {
+        //        if (pl.ConnectUserId != player.ConnectUserId) {
+        //            pl.Send("Chat", player.ConnectUserId, message.GetString(0));
+        //        }
+        //    }
+        //}
 
         private void CreateUser(Player player, Message message) {
             DatabaseObject user = new DatabaseObject();
             user.Set("name", message.GetString(0));
             PlayerIO.BigDB.CreateObject("Users", null, user,
                 delegate(DatabaseObject dbo) {
+                    player.Send("UserCreated");
                     // Success
                     Console.WriteLine("User " + user.GetString("name") + " created");
                 },
@@ -94,7 +95,6 @@ namespace OneLineDefense {
                     Console.WriteLine(error.Message);
                 });
         }
-
         #endregion
     }
 }

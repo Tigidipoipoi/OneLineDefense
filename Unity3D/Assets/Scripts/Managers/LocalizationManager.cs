@@ -67,4 +67,16 @@ public class LocalizationManager : MonoBehaviour {
             }
         }
     }
+
+    public bool TryToChangeLanguage(string language) {
+        switch (language) {
+            case Utils.Languages.c_English:
+            case Utils.Languages.c_French:
+                m_CurrentLanguage = language;
+
+                return true;
+            default:
+                return false;
+        }
+    }
 }

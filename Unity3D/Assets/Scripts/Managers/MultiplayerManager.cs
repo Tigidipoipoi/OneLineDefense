@@ -38,78 +38,10 @@ public class MultiplayerManager : MonoBehaviour {
     public string ipDevServ = "192.168.1.3";
     #endregion
 
+    public SplashScreen m_SplashScreenScript;
+
     void Start() {
         startConnection();
-    }
-
-    public void startConnection() {
-        string playerId = SystemInfo.deviceUniqueIdentifier;
-
-        //user is just using this device with no account
-        Debug.Log("Annonymous connect : " + playerId);
-        userId = playerId;
-        PlayerIOClient.PlayerIO.Connect(
-            "one-line-defense-chqahbaeyswtsujkbrxg",	// Game id 
-            "public",							        // The id of the connection, as given in the settings section of the admin panel. By default, a connection with id='public' is created on all games.
-            playerId,							        // The id of the user connecting. 
-            auth: null,								    // If the connection identified by the connection id only accepts authenticated requests, the auth value generated based on UserId is added here
-            partnerId: null,
-            playerInsightSegments: null,
-            successCallback: delegate(Client client) {
-            successfullConnect(client);
-        },
-            errorCallback: delegate(PlayerIOError error) {
-            Debug.Log("Error connecting: " + error.ToString());
-        }
-        );
-    }
-
-    void successfullConnect(Client client) {
-        Debug.Log("Successfully connected to Player.IO");
-
-        if (developmentServer) {
-            client.Multiplayer.DevelopmentServer = new ServerEndpoint(System.String.IsNullOrEmpty(ipDevServ) ? "192.168.1.96" : ipDevServ, 8184);
-        }
-        if (localhost) {
-            client.Multiplayer.DevelopmentServer = new ServerEndpoint("127.0.0.1", 8184);
-        }
-
-        //Create or join the room	
-        string roomId = "RoomId";
-        if (string.IsNullOrEmpty(roomId)) {
-            roomId = userId;
-        }
-
-        client.Multiplayer.CreateJoinRoom(
-            roomId,             //Room is the Alliance of the player 
-            "TestingRoom",      //The room type started on the server
-            visible: false,     //Should the room be visible in the lobby?
-            roomData: null,
-            joinData: null,
-            successCallback: delegate(Connection connection) {
-            Debug.Log("Joined Room : " + roomId);
-            // We successfully joined a room so set up the message handler
-            pioconnection = connection;
-            pioconnection.OnMessage += handlemessage;
-            pioconnection.OnDisconnect += disconnected;
-            //joinedroom = true;
-        },
-            errorCallback: delegate(PlayerIOError error) {
-            Debug.LogError("Error Joining Room: " + error.ToString());
-        }
-        );
-
-        pioclient = client;
-    }
-
-    public void disconnect() {
-        if (!pioconnection.Connected)
-            return;
-        pioconnection.Disconnect();
-    }
-
-    public void disconnected(object sender, string error) {
-        Debug.LogWarning("Disconnected !");
     }
 
     void FixedUpdate() {
@@ -135,11 +67,92 @@ public class MultiplayerManager : MonoBehaviour {
                 case "UserUpdated":
                     Debug.Log(m.GetString(0));
                     break;
+                case "UserCreated":
+                    if (m_SplashScreenScript != null) {
+                        m_SplashScreenScript.LaunchGame();
+                    }
+                    break;
             }
         }
 
         // clear message queue after it's been processed
         msgList.Clear();
+    }
+
+    #region Classic PlayerIO methods
+    public void startConnection() {
+        string playerId = SystemInfo.deviceUniqueIdentifier;
+
+        //user is just using this device with no account
+        Debug.Log("Annonymous connect : " + playerId);
+        userId = playerId;
+        PlayerIOClient.PlayerIO.Connect(
+            "one-line-defense-chqahbaeyswtsujkbrxg",	// Game id 
+            "public",							        // The id of the connection, as given in the settings section of the admin panel. By default, a connection with id='public' is created on all games.
+            playerId,							        // The id of the user connecting. 
+            auth: null,								    // If the connection identified by the connection id only accepts authenticated requests, the auth value generated based on UserId is added here
+            partnerId: null,
+            playerInsightSegments: null,
+            successCallback: delegate(Client client) {
+                successfullConnect(client);
+            },
+            errorCallback: delegate(PlayerIOError error) {
+                Debug.Log("Error connecting: " + error.ToString());
+            }
+        );
+    }
+
+    void successfullConnect(Client client) {
+        Debug.Log("Successfully connected to Player.IO");
+
+        if (developmentServer) {
+            client.Multiplayer.DevelopmentServer = new ServerEndpoint(System.String.IsNullOrEmpty(ipDevServ) ? "192.168.1.96" : ipDevServ, 8184);
+        }
+        if (localhost) {
+            client.Multiplayer.DevelopmentServer = new ServerEndpoint("127.0.0.1", 8184);
+        }
+
+        //Create or join the room	
+        string roomId = "RoomId";
+        if (string.IsNullOrEmpty(roomId)) {
+            roomId = userId;
+        }
+
+        client.Multiplayer.CreateJoinRoom(
+            roomId,             //Room is the Alliance of the player 
+            "Lobby",            //The room type started on the server
+            visible: false,     //Should the room be visible in the lobby?
+            roomData: null,
+            joinData: null,
+            successCallback: delegate(Connection connection) {
+                Debug.Log("Joined Room : " + roomId);
+
+                if (m_SplashScreenScript != null) {
+                    m_SplashScreenScript.EnableConnectionUI();
+                }
+
+                // We successfully joined a room so set up the message handler
+                pioconnection = connection;
+                pioconnection.OnMessage += handlemessage;
+                pioconnection.OnDisconnect += disconnected;
+                //joinedroom = true;
+            },
+            errorCallback: delegate(PlayerIOError error) {
+                Debug.LogError("Error Joining Room: " + error.ToString());
+            }
+        );
+
+        pioclient = client;
+    }
+
+    public void disconnect() {
+        if (!pioconnection.Connected)
+            return;
+        pioconnection.Disconnect();
+    }
+
+    public void disconnected(object sender, string error) {
+        Debug.LogWarning("Disconnected !");
     }
 
     void handlemessage(object sender, PlayerIOClient.Message m) {
@@ -149,7 +162,7 @@ public class MultiplayerManager : MonoBehaviour {
     void joinGameRoom(string roomId) {
         pioclient.Multiplayer.CreateJoinRoom(
         roomId,			//Room is the Alliance of the player 
-        "TestingRoom",	//The room type started on the server
+        "Lobby",     	//The room type started on the server
         false,			//Should the room be visible in the lobby?
         null,
         null,
@@ -173,16 +186,17 @@ public class MultiplayerManager : MonoBehaviour {
 
         }
     }
+    #endregion
 
     #region Methods sent to server
-    public void SendStart() {
-        Debug.Log("Sending Start to Server");
-        pioconnection.Send("start");
-    }
+    //public void SendStart() {
+    //    Debug.Log("Sending Start to Server");
+    //    pioconnection.Send("Start");
+    //}
 
-    public void SendChat(string text) {
-        pioconnection.Send("Chat", text);
-    }
+    //public void SendChat(string text) {
+    //    pioconnection.Send("Chat", text);
+    //}
 
     public void SendCreateUser(string userName) {
         pioconnection.Send("CreateUser", userName);
@@ -201,8 +215,33 @@ public class MultiplayerManager : MonoBehaviour {
             });
     }
 
-    public void UpdateUser(string userName, string userTest) {
+    public void SendUpdateUser(string userName, string userTest) {
         pioconnection.Send("UpdateUser", userName, userTest);
+    }
+    #endregion
+
+    #region Lobby methods
+    public void CreateOrConnectAsUser(string pseudo) {
+        pioclient.BigDB.Load("Users", pseudo,
+            delegate(DatabaseObject user) {
+                if (user != null) {
+                    m_SplashScreenScript.LaunchGame();
+                    string userName = user.GetString("name", "defaultName");
+                    Debug.Log(userName);
+                }
+                else {
+                    SendCreateUser(pseudo);
+                }
+            },
+            delegate(PlayerIOError error) {
+                Debug.LogError(string.Format(
+                    "MultiplayerManager::LoadUser => {0}",
+                    error.Message));
+            });
+    }
+
+    public void GameLaunched() {
+        m_SplashScreenScript = null;
     }
     #endregion
 }

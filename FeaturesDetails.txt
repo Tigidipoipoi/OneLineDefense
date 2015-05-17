@@ -1,0 +1,25 @@
+Navmesh Agent:
+	Sur les prefabs de creep: "MeleeCreep" et "RangeCreep".
+	Le script qui gère la destination des navMeshs est dans "CreepMovement".
+		Elle est affectée au start du creep et est modifié lors de la detection et la mort d'un ennemi (détection et mort gérés dans "CreepAttack")
+
+Mecanim:
+	Utilisé comme machine à état par les creeps dans les classes CreepAttack et CreepScript.
+	CreepScript garde une référence de l'animator et a le droit de le mettre à jour 
+	tandis que CreepAttack ce sert de l'état actuel pour savoir quel comportement adopter.
+
+UI:
+	Chaque élément de l'UI est mis à jour par la classe UIManager.
+
+Localisation:
+	Le fichier CSV se trouve dans Assets/Localization.
+	Le script qui gère le parsing de ce fichier est LocalizationManager.
+	Chaque champs de texte qui a besoin d'être localisé demande au manager quelle version il doit afficher via la méthode GetLocalizedText.
+
+Sauvegarde & réseau:
+	Partie client:
+		Au lancement de la partie le joueur peut soit se connecter avec un pseudonyme soit se connecter anonymement.
+		La connection est gérée dans la classe MultiplayerManager et les méthodes appelées par l'UI sont celles de la classe SplashScreen
+		(Note: la connection anonyme sert pour l'instant à lancer le jeu sans connection.)
+		Lorsque le client essaye de se connecter avec un pseudo, on vérifie que ce pseudo existe dans la base de donnée (via "CreateOrConnectAsUser")
+		s'il existe on lance le jeu sinon on demande au serveur de créer un nouveau "User".
